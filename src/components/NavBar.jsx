@@ -1,46 +1,43 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaBars } from 'react-icons/fa';
+import { CartContext } from '../context/CartContext';
 
 function Navbar() {
+  const { cartCount } = useContext(CartContext);
+
   return (
-    <nav className="bg-blue-600 p-4">
+    <nav className="bg-blue-600 p-4 text-white">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-2xl font-bold">
-          <Link to="/">ShopIt</Link>
-        </div>
+        <Link to="/" className="text-2xl font-bold">ShopIt</Link>
 
-        {/* Links */}
-        <div className="hidden md:flex space-x-6 text-white">
-          <Link to="/" className="hover:text-gray-200">Home</Link>
+        {/* Navigation Links */}
+        <div className="hidden md:flex space-x-6">
           <Link to="/products" className="hover:text-gray-200">Products</Link>
-          <Link to="/cart" className="hover:text-gray-200">Cart</Link>
-          <Link to="/contact" className="hover:text-gray-200">Contact</Link>
+          <Link to="/cart" className="relative hover:text-gray-200">
+            <FaShoppingCart size={24} />
+            {cartCount > 0 && (
+              <span className="absolute top-[-5px] right-[-5px] bg-red-500 text-white rounded-full text-xs w-5 h-5 flex justify-center items-center">
+                {cartCount}
+              </span>
+            )}
+          </Link>
         </div>
 
-        {/* Search Bar & Cart */}
-        <div className="flex items-center space-x-4">
-          <input 
-            type="text" 
-            placeholder="Search products..." 
-            className="p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 hidden md:block"
-          />
-          
-          {/* Shopping Cart Icon */}
-          <Link to="/cart" className="relative text-white">
-            <FaShoppingCart size={24} />
-            <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex justify-center items-center">3</span>
-          </Link>
+        {/* Mobile Menu Icon */}
+        <div className="md:hidden">
+          <FaBars size={24} />
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className="md:hidden mt-4 text-white flex justify-between">
-        <Link to="/" className="hover:text-gray-200">Home</Link>
+      <div className="md:hidden mt-4 text-white flex flex-col space-y-2">
         <Link to="/products" className="hover:text-gray-200">Products</Link>
-        <Link to="/cart" className="hover:text-gray-200">Cart</Link>
-        <Link to="/contact" className="hover:text-gray-200">Contact</Link>
+        <Link to="/cart" className="hover:text-gray-200 flex items-center">
+          <FaShoppingCart size={20} />
+          <span className="ml-2">Cart ({cartCount})</span>
+        </Link>
       </div>
     </nav>
   );
