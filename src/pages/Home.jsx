@@ -1,9 +1,9 @@
 // src/pages/HomePage.jsx
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
-import axios from "axios";
-import ApiContext from "../context/ApiContext";
+import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
+import ProductCard from '../components/ProductCard';
+
+
 
 function HomePage() {
   const[products, setProducts] = useState([])
@@ -17,29 +17,20 @@ function HomePage() {
       {/* Hero Section */}
       <section className="bg-blue-600 text-white py-20 text-center">
         <h1 className="text-5xl font-bold">Welcome to ShopIt!</h1>
-        <p className="mt-4 text-lg">
-          Find the best products at unbeatable prices.
-        </p>
-        <Link
-          to="/products"
-          className="bg-white text-blue-600 py-2 px-4 rounded-lg mt-6 inline-block font-semibold hover:bg-gray-200"
-        >
+        <p className="mt-4 text-lg">Find the best products at unbeatable prices.</p>
+        <Link to="/products" className="bg-white text-blue-600 py-2 px-4 rounded-lg mt-6 inline-block font-semibold hover:bg-gray-200">
           Shop Now
         </Link>
       </section>
 
       {/* Featured Products Section */}
       <section className="mt-16">
-        <h2 className="text-3xl font-bold mb-6 text-center">
-          Featured Products
-        </h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">Featured Products</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products && products.length > 0 ? (
-            products
-              .slice(0, 7)
-              .map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))
+            products.slice(0, 7).map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))
           ) : (
             <div className='text-center font-bold uppercase w-full h-[10vh] font-mono flex items-center justify-center'>
         <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

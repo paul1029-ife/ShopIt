@@ -1,11 +1,15 @@
 // src/pages/Products.jsx
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
-import ApiContext from '../context/ApiContext';
 
 
 function Products() {
-  const { products } = useContext(ApiContext)
+  const[products, setProducts] = useState([])
+  useEffect(()=>{
+    fetch('https://fakestoreapi.com/products').then(res => res.json()).then(products => {
+      setProducts(products);
+    }).catch(e=>console.log(e.message));
+  },[])
   
 
   console.log('Products array:', products); // Log products to check if it is correctly populated
