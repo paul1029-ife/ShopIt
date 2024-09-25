@@ -1,17 +1,13 @@
 // src/pages/HomePage.jsx
-import React, {useState, useEffect} from 'react';
+import React, { useContext} from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
+import { ProductContext } from '../context/ProductContext';
 
 
 
 function HomePage() {
-  const[products, setProducts] = useState([])
-  useEffect(()=>{
-    fetch('https://fakestoreapi.com/products').then(res => res.json()).then(products => {
-      setProducts(products);
-    }).catch(e=>console.log(e.message));
-  },[])
+  const { fProducts } = useContext(ProductContext) 
   return (
     <div className="container mx-auto py-16">
       {/* Hero Section */}
@@ -27,8 +23,8 @@ function HomePage() {
       <section className="mt-16">
         <h2 className="text-3xl font-bold mb-6 text-center">Featured Products</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products && products.length > 0 ? (
-            products.slice(0, 7).map((product) => (
+          {fProducts && fProducts.length > 0 ? (
+            fProducts.slice(0, 6).map((product) => (
               <ProductCard key={product.id} product={product} />
             ))
           ) : (
@@ -40,7 +36,7 @@ function HomePage() {
           )}
         </div>
       </section>
-
+      <Link to="/Products" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">More products</Link>
       {/* More content can be added below */}
     </div>
   );

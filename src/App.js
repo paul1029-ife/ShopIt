@@ -9,10 +9,12 @@ import Cart from './pages/Cart';
 import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
 import Contact from './pages/Contact';
+import { ProductProvider } from './context/ProductContext';
 
 function App() {
   return (
     <CartProvider>
+      <ProductProvider>
       <Router>
         <div className="flex flex-col min-h-screen">
           <Navbar />
@@ -29,6 +31,7 @@ function App() {
           <Footer />
         </div>
       </Router>
+      </ProductProvider>
     </CartProvider>
   );
 }

@@ -1,20 +1,15 @@
 // src/pages/Products.jsx
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import ProductCard from '../components/ProductCard';
+import { ProductContext } from '../context/ProductContext';
 
 
 function Products() {
-  const[products, setProducts] = useState([])
-  useEffect(()=>{
-    fetch('https://fakestoreapi.com/products').then(res => res.json()).then(products => {
-      setProducts(products);
-    }).catch(e=>console.log(e.message));
-  },[])
+  const {fProducts} = useContext(ProductContext)
   
+  // Log products to check if it is correctly populated
 
-  console.log('Products array:', products); // Log products to check if it is correctly populated
-
-  if (products.length === 0) {
+  if (fProducts.length === 0) {
     return <div className='text-center font-bold uppercase w-full h-[80vh] font-mono flex items-center justify-center'>
         <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
@@ -25,8 +20,8 @@ function Products() {
     <div className="container mx-auto py-16">
       <h1 className="text-4xl font-bold text-center mb-10">Products</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {products && products.length > 0 ? (
-          products.map((product) => (
+        {fProducts && fProducts.length > 0 ? (
+          fProducts.map((product) => (
             <ProductCard key={product.id} product={product} /> // Ensure product is passed here
           ))
         ) : (

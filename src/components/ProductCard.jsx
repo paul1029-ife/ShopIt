@@ -4,24 +4,23 @@ import { CartContext } from '../context/CartContext';
 
 function ProductCard({ product }) {
   const { addToCart } = useContext(CartContext);
-
-  console.log('Product passed to ProductCard:', product); // Log to see if the product is received
+// Log to see if the product is received
 
   // Prevent error if product is undefined
   if (!product) {
     return <p>No product data available</p>;
   }
 
-  const { id, name, price, image } = product;
+  const { id, title, price, image } = product;
 
   return (
-    <div key={id} className="bg-white shadow-lg rounded-lg p-4">
+    <div key={id} className="bg-white shadow-lg rounded-lg p-4 overflow-hidden hover:scale-110 transition-all duration-300">
       <img
         src={image}
-        alt={name}
+        alt={title}
         className="w-full h-64 object-cover rounded-lg"
       />
-      <h3 className="text-lg font-bold mt-2">{name}</h3>
+      <h3 className="text-lg font-bold mt-2">{title}</h3>
       <p className="text-gray-700 mt-2">${price}</p>
       <button
         onClick={() => addToCart(product)}
